@@ -1,15 +1,16 @@
 package com.greg.todoc.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Task {
     long id;
     String image;
     String title;
-    String dateOfCreation;
+    Date dateOfCreation;
     String project;
 
-    public Task(long id, String image, String title, String dateOfCreation, String project) {
+    public Task(long id, String image, String title, Date dateOfCreation, String project) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -41,11 +42,11 @@ public class Task {
         this.title = title;
     }
 
-    public String getDateOfCreation() {
+    public Date getDateOfCreation() {
         return dateOfCreation;
     }
 
-    public void setDateOfCreation(String dateOfCreation) {
+    public void setDateOfCreation(Date dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
     }
 
