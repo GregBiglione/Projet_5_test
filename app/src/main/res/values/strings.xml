@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Todoc</string>
+    <string name="title_second_line">Crée le:</string>
 </resources>
