@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Todoc</string>
     <string name="title_second_line">Crée le:</string>
+    <string name="delete_icon_cd">delete icon</string>
 </resources>
