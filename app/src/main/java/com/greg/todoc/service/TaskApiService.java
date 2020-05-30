@@ -10,4 +10,9 @@ public interface TaskApiService {
      * Get Task list
      */
     List<Task> getTasks();
+
+    /**
+     * Delete a Task
+     */
+    void deleteTask(Task task);
 }

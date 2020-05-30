@@ -12,4 +12,9 @@ public class DummyTaskApiService implements TaskApiService{
     public List<Task> getTasks() {
         return tasks;
     }
+
+    @Override
+    public void deleteTask(Task task) {
+        tasks.remove(task);
+    }
 }

@@ -3,6 +3,7 @@ package com.greg.todoc.task_list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.greg.todoc.R;
+import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.model.Task;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -43,6 +47,13 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         holder.mTitle.setText(task.getTitle());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         holder.mCreationDate.setText(simpleDateFormat.format(task.getDateOfCreation()));
+
+        holder.mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new DeleteTaskEvent(task));
+            }
+        });
     }
 
     @Override
@@ -56,6 +67,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         @BindView(R.id.color_item) ImageView mColor;
         @BindView(R.id.title_tv) TextView mTitle;
         @BindView(R.id.creation_date_tv) TextView mCreationDate;
+        @BindView(R.id.delete_button) ImageButton mDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
