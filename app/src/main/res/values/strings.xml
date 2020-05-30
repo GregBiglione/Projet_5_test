@@ -2,4 +2,12 @@
     <string name="app_name">Todoc</string>
     <string name="title_second_line">Crée le:</string>
     <string name="delete_icon_cd">delete icon</string>
+    <string name="add_task_tv">Ajouter une tâche</string>
+    <string name="task_et_hint">Tâche à faire</string>
+
+    <string-array name="project_array">
+        <item>Projet Circus</item>
+        <item>Projet Lucidia</item>
+        <item>Projet Tartampion</item>
+    </string-array>
 </resources>

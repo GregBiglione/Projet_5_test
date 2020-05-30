@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greg.todoc.R;
 import com.greg.todoc.di.DI;
+import com.greg.todoc.dialog_box.AddDialog;
 import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
@@ -20,12 +23,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TaskListActivity extends AppCompatActivity {
 
     private List<Task> mTask;
     private TaskApiService mApiService;
     @BindView(R.id.task_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.add_btn) FloatingActionButton mAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,13 @@ public class TaskListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         initList();
+
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddDialog();
+            }
+        });
     }
 
     public void initList(){
@@ -59,5 +71,10 @@ public class TaskListActivity extends AppCompatActivity {
     public void onDeleteTask(DeleteTaskEvent event){
         mApiService.deleteTask(event.task);
         initList();
+    }
+
+    public void openAddDialog(){
+        AddDialog addDialog = new AddDialog();
+        addDialog.show(getSupportFragmentManager(), "Add dialog");
     }
 }
