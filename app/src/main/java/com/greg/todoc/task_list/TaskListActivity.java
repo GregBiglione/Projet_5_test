@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greg.todoc.R;
 import com.greg.todoc.di.DI;
 import com.greg.todoc.dialog_box.AddDialog;
+import com.greg.todoc.dialog_box.ProjectDialog;
 import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
@@ -94,6 +95,8 @@ public class TaskListActivity extends AppCompatActivity {
             case R.id.by_date:
                 break;
             case R.id.by_project:
+                ProjectDialog projectDialog = new ProjectDialog();
+                projectDialog.showNow(getSupportFragmentManager(), "Project dialog");
                 break;
         }
         return super.onOptionsItemSelected(item);
