@@ -17,7 +17,7 @@
             android:id="@+id/projectDialogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_task_tv"
+            android:text="@string/project_list"
             style="@style/add_task_tv_style"/>
 
         <Spinner

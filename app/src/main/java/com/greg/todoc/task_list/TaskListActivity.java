@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greg.todoc.R;
 import com.greg.todoc.di.DI;
 import com.greg.todoc.dialog_box.AddDialog;
+import com.greg.todoc.dialog_box.DateDialog;
 import com.greg.todoc.dialog_box.ProjectDialog;
 import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.model.Task;
@@ -93,10 +94,12 @@ public class TaskListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.by_date:
+                DateDialog dateDialog = new DateDialog();
+                dateDialog.show(getSupportFragmentManager(), "Date dialog");
                 break;
             case R.id.by_project:
                 ProjectDialog projectDialog = new ProjectDialog();
-                projectDialog.showNow(getSupportFragmentManager(), "Project dialog");
+                projectDialog.show(getSupportFragmentManager(), "Project dialog");
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -6,6 +6,8 @@
     <string name="main_menu">Main menu</string>
     <string name="par_dates">Par dates</string>
     <string name="par_projet">Par projet</string>
+    <string name="project_list">Liste des projets</string>
+    <string name="dates_choices">Choix des dates</string>
 
     <string-array name="project_array">
         <item>Projet Circus</item>
