@@ -13,8 +13,23 @@ public class DummyTaskApiService implements TaskApiService{
         return tasks;
     }
 
+    /**
+     * Delete a Task
+     * @param task
+     */
+
     @Override
     public void deleteTask(Task task) {
         tasks.remove(task);
+    }
+
+    /**
+     * CReate a Task
+     * @param task
+     */
+
+    @Override
+    public void createTask(Task task) {
+        tasks.add(task);
     }
 }

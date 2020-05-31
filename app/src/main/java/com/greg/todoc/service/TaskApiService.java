@@ -15,4 +15,10 @@ public interface TaskApiService {
      * Delete a Task
      */
     void deleteTask(Task task);
+
+    /**
+     * Create a task
+     * @param task
+     */
+    void createTask(Task task);
 }

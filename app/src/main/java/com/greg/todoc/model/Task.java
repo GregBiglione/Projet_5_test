@@ -1,16 +1,17 @@
 package com.greg.todoc.model;
 
+import android.graphics.Color;
+
 import java.util.Date;
-import java.util.Objects;
 
 public class Task {
     long id;
-    String image;
+    int image;
     String title;
     Date dateOfCreation;
     String project;
 
-    public Task(long id, String image, String title, Date dateOfCreation, String project) {
+    public Task(long id, int image, String title, Date dateOfCreation, String project) {
         this.id = id;
         this.image = image;
         this.title = title;
@@ -26,11 +27,11 @@ public class Task {
         this.id = id;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 

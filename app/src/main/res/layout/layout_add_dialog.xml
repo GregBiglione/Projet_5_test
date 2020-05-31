@@ -13,6 +13,12 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageColor"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/addTaskTitle"
             android:layout_width="match_parent"
@@ -20,13 +26,33 @@
             android:text="@string/add_task_tv"
             style="@style/add_task_tv_style"/>
 
-        <EditText
-            android:id="@+id/addTaskEt"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addTaskInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/addTaskEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateOfCreationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/task_et_hint"
-            android:layout_marginTop="20dp"
-            android:inputType="text"/>
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/DateEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:visibility="gone"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:id="@+id/projectSpinner"

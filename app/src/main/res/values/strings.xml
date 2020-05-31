@@ -3,7 +3,9 @@
     <string name="title_second_line">Crée le:</string>
     <string name="delete_icon_cd">delete icon</string>
     <string name="add_task_tv">Ajouter une tâche</string>
-    <string name="task_et_hint">Tâche à faire</string>
+    <string name="main_menu">Main menu</string>
+    <string name="par_dates">Par dates</string>
+    <string name="par_projet">Par projet</string>
 
     <string-array name="project_array">
         <item>Projet Circus</item>

@@ -1,11 +1,15 @@
 package com.greg.todoc.task_list;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -75,5 +79,23 @@ public class TaskListActivity extends AppCompatActivity {
     public void openAddDialog(){
         AddDialog addDialog = new AddDialog();
         addDialog.show(getSupportFragmentManager(), "Add dialog");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filter_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.by_date:
+                break;
+            case R.id.by_project:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
