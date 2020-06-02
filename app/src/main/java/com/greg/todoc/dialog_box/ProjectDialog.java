@@ -12,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.greg.todoc.R;
+import com.greg.todoc.events.FilterByProjectEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
@@ -39,7 +42,8 @@ public class ProjectDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        String project = mSpinner.getSelectedItem().toString().trim();
+                        EventBus.getDefault().post(new FilterByProjectEvent(project));
                     }
                 });
         return builder.create();

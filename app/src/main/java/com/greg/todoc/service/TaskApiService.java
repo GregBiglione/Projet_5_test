@@ -27,4 +27,9 @@ public interface TaskApiService {
      * Get Task list filtered by dates
      */
     List<Task> getTasksByDates(Date startDate, Date endDate);
+
+    /**
+     * Get Task list filtered by project
+     */
+    List<Task> getTasksByProject(String selectedProject);
 }

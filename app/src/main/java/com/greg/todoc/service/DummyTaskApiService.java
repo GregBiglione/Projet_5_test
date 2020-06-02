@@ -47,4 +47,17 @@ public class DummyTaskApiService implements TaskApiService{
         }
         return filterByDates;
     }
+
+    @Override
+    public List<Task> getTasksByProject(String selectedProject) {
+        List<Task> filterByProject = new ArrayList<>();
+        for (Task t: tasks)
+        {
+            if(t.getProject().equals(selectedProject))
+            {
+                filterByProject.add(t);
+            }
+        }
+        return filterByProject;
+    }
 }

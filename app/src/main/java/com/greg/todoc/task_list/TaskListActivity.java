@@ -1,6 +1,5 @@
 package com.greg.todoc.task_list;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +19,7 @@ import com.greg.todoc.dialog_box.DateDialog;
 import com.greg.todoc.dialog_box.ProjectDialog;
 import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.events.FilterByDateEvent;
+import com.greg.todoc.events.FilterByProjectEvent;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
 
@@ -92,7 +92,7 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.by_date:
                 DateDialog dateDialog = new DateDialog();
@@ -109,6 +109,12 @@ public class TaskListActivity extends AppCompatActivity {
     @Subscribe
     public void onFilterBydate(FilterByDateEvent event){
         mTask = mApiService.getTasksByDates(event.getStartDate(), event.getEnddate());
+        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
+    }
+
+    @Subscribe
+    public void onFilterByProject(FilterByProjectEvent event){
+        mTask = mApiService.getTasksByProject(event.getProjectSelected());
         mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
     }
 }

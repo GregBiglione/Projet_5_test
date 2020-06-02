@@ -64,9 +64,9 @@ public class DateDialog extends AppCompatDialogFragment {
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         try {
-                             Date start = simpleDateFormat.parse(mStartDateEdit.getText().toString().trim());
-                            Date end = simpleDateFormat.parse(mEndDateEdit.getText().toString().trim());
-                            EventBus.getDefault().post(new FilterByDateEvent(start, end));
+                                Date start = simpleDateFormat.parse(mStartDateEdit.getText().toString().trim());
+                                Date end = simpleDateFormat.parse(mEndDateEdit.getText().toString().trim());
+                                EventBus.getDefault().post(new FilterByDateEvent(start, end));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
