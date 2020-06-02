@@ -19,6 +19,7 @@ import com.greg.todoc.dialog_box.AddDialog;
 import com.greg.todoc.dialog_box.DateDialog;
 import com.greg.todoc.dialog_box.ProjectDialog;
 import com.greg.todoc.events.DeleteTaskEvent;
+import com.greg.todoc.events.FilterByDateEvent;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
 
@@ -103,5 +104,11 @@ public class TaskListActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void onFilterBydate(FilterByDateEvent event){
+        mTask = mApiService.getTasksByDates(event.getStartDate(), event.getEnddate());
+        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
     }
 }

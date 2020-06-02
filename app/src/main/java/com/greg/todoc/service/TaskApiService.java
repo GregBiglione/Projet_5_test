@@ -2,6 +2,7 @@ package com.greg.todoc.service;
 
 import com.greg.todoc.model.Task;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TaskApiService {
@@ -21,4 +22,9 @@ public interface TaskApiService {
      * @param task
      */
     void createTask(Task task);
+
+    /**
+     * Get Task list filtered by dates
+     */
+    List<Task> getTasksByDates(Date startDate, Date endDate);
 }

@@ -11,7 +11,14 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.greg.todoc.R;
+import com.greg.todoc.events.FilterByDateEvent;
 import com.greg.todoc.picker.Pick;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 
@@ -55,6 +62,14 @@ public class DateDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                             Date start = simpleDateFormat.parse(mStartDateEdit.getText().toString().trim());
+                            Date end = simpleDateFormat.parse(mEndDateEdit.getText().toString().trim());
+                            EventBus.getDefault().post(new FilterByDateEvent(start, end));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         return builder.create();
