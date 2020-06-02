@@ -10,25 +10,40 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.greg.todoc.R;
+import com.greg.todoc.picker.Pick;
 
 import butterknife.BindView;
 
 public class DateDialog extends AppCompatDialogFragment {
 
-    @BindView(R.id.dialogStartDateLyt) TextInputLayout mStartDateInput;
     @BindView(R.id.dialogStartDateEdit) EditText mStartDateEdit;
-    @BindView(R.id.dialogEndDateLyt) TextInputLayout mEndDateInput;
     @BindView(R.id.dialogEndDateEdit) EditText mEndDateEdit;
+    private Pick mPick;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_date_dialog, null);
+
         mStartDateEdit = view.findViewById(R.id.dialogStartDateEdit);
         mEndDateEdit = view.findViewById(R.id.dialogEndDateEdit);
+
+        mStartDateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pick.pickDate(mStartDateEdit, getActivity());
+            }
+        });
+
+        mEndDateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pick.pickDate(mEndDateEdit, getActivity());
+            }
+        });
+
         builder.setView(view)
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
