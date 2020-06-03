@@ -1,5 +1,6 @@
 package com.greg.todoc.task_list;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,6 +55,8 @@ public class TaskListActivity extends AppCompatActivity {
                 openAddDialog();
             }
         });
+
+
     }
 
     public void initList(){
@@ -77,6 +80,10 @@ public class TaskListActivity extends AppCompatActivity {
     public void onDeleteTask(DeleteTaskEvent event){
         mApiService.deleteTask(event.task);
         initList();
+        if (mTask.isEmpty())
+        {
+            setContentView(R.layout.no_task);
+        }
     }
 
     public void openAddDialog(){
@@ -92,7 +99,7 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.by_date:
                 DateDialog dateDialog = new DateDialog();

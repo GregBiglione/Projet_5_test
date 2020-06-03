@@ -24,4 +24,8 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="no_task_style">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

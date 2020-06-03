@@ -8,6 +8,7 @@
     <string name="par_projet">Par projet</string>
     <string name="project_list">Liste des projets</string>
     <string name="dates_choices">Choix des dates</string>
+    <string name="no_task_text">Tu n’as aucune tâche à traiter</string>
 
     <string-array name="project_array">
         <item>Projet Circus</item>
