@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,13 +14,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.greg.todoc.R;
 import com.greg.todoc.di.DI;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
 
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,11 +56,63 @@ public class AddDialog extends AppCompatDialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
 
+        //id value
+        //System.currentTimeMillis();
+//
+        ////image (color depending of spinner item selected)
+        //int lucidiaColor = ContextCompat.getColor(getActivity(), R.color.colorLucidia);
+        //int circusColor = ContextCompat.getColor(getActivity(), R.color.colorCircus);
+        //int tartampionColor = ContextCompat.getColor(getActivity(), R.color.colorTartampion);
+        //mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //    @Override
+        //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //        switch(getId())
+        //        {
+        //            case 0:
+        //                mColor.setBackgroundColor(circusColor);
+        //                break;
+        //            case 1:
+        //                mColor.setBackgroundColor(lucidiaColor);
+        //                break;
+        //            case 2:
+        //                mColor.setBackgroundColor(tartampionColor);
+        //        }
+        //    }
+//
+        //    @Override
+        //    public void onNothingSelected(AdapterView<?> parent) {
+//
+        //    }
+        //});
+//
+        ////task title (edit text)
+        //mAddTaskInput.getEditText().getText().toString().trim();
+//
+        ////date of creation
+        //Calendar c = Calendar.getInstance();
+        //String currentDate = DateFormat.getDateInstance().format(c.getTime());
+        //mAddDate.setText(currentDate);
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //try {
+        //    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
+        //} catch (ParseException e) {
+        //    e.printStackTrace();
+        //}
+//
+        //// task project (spinner value)
+        //mSpinner.getSelectedItem().toString().trim();
+
         builder.setView(view)
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        //Task task = new Task(
+                        //        System.currentTimeMillis(),
+                        //        mColor,
+                        //        mAddTaskInput.getEditText().getText().toString().trim(),
+                        //        today,
+                        //        mSpinner.getSelectedItem().toString().trim()
+                        //);
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -64,5 +122,20 @@ public class AddDialog extends AppCompatDialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    public void init(){
+
+        //Glide.with(getActivity())
+        //        .load()
+        //        .into(mColor);
+        mAddTaskInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 }

@@ -49,15 +49,15 @@ public class TaskServiceTest{
         assertFalse(service.getTasks().contains(taskToDelete));
     }
 
-    //@Test
-    //public void addTaskWithSuccess(){
-    //    int lucidiaColor = ContextCompat.getColor(getActivity(), R.color.colorLucidia);
-    //    long id = 21;
-    //    int image = lucidiaColor;
-    //    String title = "Passer l'aspirateur";
-    //    Date dateOfCreation = new Date(121, 6, 4);
-    //    String project = "Projet Lucidia"
-    //    Task taskToAdd = new Task(id, image, title, dateOfCreation, project);
-    //    service.createTask(taskToAdd);
-    //}
+    @Test
+    public void addTaskWithSuccess(){
+        int lucidiaColor = R.drawable.tartampion;
+        long id = 21;
+        int image = lucidiaColor;
+        String title = "Passer l'aspirateur";
+        Date dateOfCreation = new Date(121, 6, 4);
+        String project = "Projet Lucidia";
+        Task taskToAdd = new Task(id, image, title, dateOfCreation, project);
+        service.createTask(taskToAdd);
+    }
 }
