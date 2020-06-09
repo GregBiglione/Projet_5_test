@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.greg.todoc"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -64,5 +64,6 @@ dependencies {
     // Instrumented Test
     implementation "androidx.test:runner:1.2.0"
     implementation "androidx.test:rules:1.2.0"
+    implementation "androidx.test.espresso:espresso-contrib:3.2.0"
 
 }
