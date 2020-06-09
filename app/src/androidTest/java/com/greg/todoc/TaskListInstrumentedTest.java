@@ -43,6 +43,7 @@ import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -132,7 +133,7 @@ public class TaskListInstrumentedTest{
                 .perform(PickerActions.setDate(2020, 6, 14));
         onView(withId(android.R.id.button1))
                 .perform(click());
-        onView(anyOf(withText("Par dates"), withId(android.R.id.button1)))
+        onView(withId(R.id.okDateDialog))
                 .perform(click());
         onView(withId(R.id.task_recycler_view))
                 .check(ViewAssertions.matches(isDisplayed()));
@@ -150,17 +151,41 @@ public class TaskListInstrumentedTest{
                 .atPosition(2)
                 .inRoot(RootMatchers.isPlatformPopup())
                 .perform(click());
-        onView(withId(android.R.id.button1))
+        onView(withId(R.id.okProjectDialog))
                 .perform(click());
         onView(withId(R.id.task_recycler_view))
                 .check(ViewAssertions.matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkError_isDiplayed_ifEndDate_lowerThan_StartDate(){
+        onView(withId(R.id.main_menu))
+                .perform(click());
+        onView(withText("Par dates"))
+                .perform(click());
+        onView(withId(R.id.dialogStartDateEdit))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020, 6, 9));
+        onView(withId(android.R.id.button1))
+                .perform(click());
+        onView(withId(R.id.dialogEndDateEdit))
+                .perform(doubleClick());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020, 6, 2));
+        onView(withId(android.R.id.button1))
+                .perform(click());
+        onView(withId(R.id.okDateDialog))
+                .perform(click());
+        onView(withId(R.id.dialogEndDateEdit))
+                .check(ViewAssertions.matches(hasErrorText("Date de fin incorrecte")));
     }
 }
 
 //    //Création du test vérifiant que la liste contient 1 item  ------------------------------------------------OK
 //    //Création du test vérifiant que la liste contient 1 élément de moins après suppression -------------------OK
 //    //Création du test vérifiant le changement de background si la liste contient 0 élément -------------------OK
-//    //Création du test vérifiant l’affichage du message d’erreur si heure de fin < heure de début
+//    //Création du test vérifiant l’affichage du message d’erreur si heure de fin < heure de début -------------OK
 //    //Création du test vérifiant l’affichage de la liste filtrée par date -------------------------------------OK
 //    //Création du test vérifiant l’affichage de la liste filtrée par projet -----------------------------------OK
 //    //Création du test vérifiant l’ajout et que la liste contient bien un élément de plus
