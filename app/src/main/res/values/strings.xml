@@ -10,7 +10,7 @@
     <string name="dates_choices">Choix des dates</string>
     <string name="no_task_text">Tu n’as aucune tâche à traiter</string>
     <string name="cancel">annuler</string>
-    <string name="add">Ajouter</string>
+    <string name="ok">Ok</string>
 
     <string-array name="project_array">
         <item>Projet Circus</item>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,8 @@ import butterknife.BindView;
 public class ProjectDialog extends AppCompatDialogFragment {
 
     @BindView(R.id.projectDialogSpinner) Spinner mSpinner;
+    @BindView(R.id.okProjectDialog) Button mOkProject;
+    @BindView(R.id.cancelProjectDialog) Button mCancelProject;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,20 +35,26 @@ public class ProjectDialog extends AppCompatDialogFragment {
                 getResources().getStringArray(R.array.project_array));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        builder.setView(view)
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setView(view);
 
+        mOkProject = view.findViewById(R.id.okProjectDialog);
+        mOkProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String project = mSpinner.getSelectedItem().toString().trim();
+                EventBus.getDefault().post(new FilterByProjectEvent(project));
+                dismiss();
             }
-        })
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String project = mSpinner.getSelectedItem().toString().trim();
-                        EventBus.getDefault().post(new FilterByProjectEvent(project));
-                    }
-                });
+        });
+
+        mCancelProject = view.findViewById(R.id.cancelProjectDialog);
+        mCancelProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         return builder.create();
     }
 }

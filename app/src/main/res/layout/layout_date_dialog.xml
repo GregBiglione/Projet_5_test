@@ -51,7 +51,6 @@
             android:id="@+id/cancelDateDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/transparent"
             android:text="@string/cancel"
             android:textColor="@color/colorPrimary"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
@@ -60,9 +59,8 @@
             android:id="@+id/okDateDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add"
+            android:text="@string/ok"
             android:textColor="@color/colorPrimary"
-            android:paddingRight="0dp"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
 
     </LinearLayout>
