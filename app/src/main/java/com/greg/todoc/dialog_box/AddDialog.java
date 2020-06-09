@@ -57,10 +57,10 @@ public class AddDialog extends AppCompatDialogFragment {
         mSpinner.setAdapter(adapter);
 
         //id value
-        //System.currentTimeMillis();
+        System.currentTimeMillis();
 //
-        ////image (color depending of spinner item selected)
-        //int lucidiaColor = ContextCompat.getColor(getActivity(), R.color.colorLucidia);
+        //image (color depending of spinner item selected)
+        //int lucidiaColor = ContextCompat.getColor(getActivity(), R.drawable.circus);
         //int circusColor = ContextCompat.getColor(getActivity(), R.color.colorCircus);
         //int tartampionColor = ContextCompat.getColor(getActivity(), R.color.colorTartampion);
         //mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -69,13 +69,13 @@ public class AddDialog extends AppCompatDialogFragment {
         //        switch(getId())
         //        {
         //            case 0:
-        //                mColor.setBackgroundColor(circusColor);
+        //                mColor.setBackgroundColor(R.drawable.circus);
         //                break;
         //            case 1:
-        //                mColor.setBackgroundColor(lucidiaColor);
+        //                mColor.setBackgroundColor(R.drawable.lucidia);
         //                break;
         //            case 2:
-        //                mColor.setBackgroundColor(tartampionColor);
+        //                mColor.setBackgroundColor(R.drawable.tartampion);
         //        }
         //    }
 //
@@ -84,11 +84,11 @@ public class AddDialog extends AppCompatDialogFragment {
 //
         //    }
         //});
-//
-        ////task title (edit text)
+
+        //task title (edit text)
         //mAddTaskInput.getEditText().getText().toString().trim();
-//
-        ////date of creation
+
+        //date of creation
         //Calendar c = Calendar.getInstance();
         //String currentDate = DateFormat.getDateInstance().format(c.getTime());
         //mAddDate.setText(currentDate);
@@ -98,21 +98,31 @@ public class AddDialog extends AppCompatDialogFragment {
         //} catch (ParseException e) {
         //    e.printStackTrace();
         //}
-//
-        //// task project (spinner value)
+
+        // task project (spinner value)
         //mSpinner.getSelectedItem().toString().trim();
 
         builder.setView(view)
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Task task = new Task(
-                        //        System.currentTimeMillis(),
-                        //        mColor,
-                        //        mAddTaskInput.getEditText().getText().toString().trim(),
-                        //        today,
-                        //        mSpinner.getSelectedItem().toString().trim()
-                        //);
+                        //Calendar c = Calendar.getInstance();
+                        //String currentDate = DateFormat.getDateInstance().format(c.getTime());
+                        //mAddDate.setText(currentDate);
+                        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        //try {
+                        //    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
+                        //} catch (ParseException e) {
+                        //    e.printStackTrace();
+                        //}
+
+                        Task task = new Task(
+                                System.currentTimeMillis(),
+                                R.drawable.lucidia,
+                                mAddTaskInput.getEditText().getText().toString().trim(),
+                                new Date(122, 11, 17),
+                                mSpinner.getSelectedItem().toString().trim()
+                        );
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -126,9 +136,9 @@ public class AddDialog extends AppCompatDialogFragment {
 
     public void init(){
 
-        //Glide.with(getActivity())
-        //        .load()
-        //        .into(mColor);
+        Glide.with(getActivity())
+                .load(R.drawable.lucidia)
+                .into(mColor);
         mAddTaskInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}

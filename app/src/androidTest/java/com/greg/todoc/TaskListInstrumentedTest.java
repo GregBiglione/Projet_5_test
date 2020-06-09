@@ -12,6 +12,7 @@ import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.PickerActions;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -39,7 +40,9 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -115,7 +118,7 @@ public class TaskListInstrumentedTest{
     public void checkTask_byDate_isDisplayed(){
         onView(withId(R.id.main_menu))
                 .perform(click());
-        onView(anyOf(withText("Par dates"), withId(R.id.by_date)))
+        onView(withText("Par dates"))
                 .perform(click());
         onView(withId(R.id.dialogStartDateEdit))
                 .perform(click());
@@ -139,20 +142,16 @@ public class TaskListInstrumentedTest{
     public void checkTask_byProject_isDisplayed(){
         onView(withId(R.id.main_menu))
                 .perform(click());
-        onView(anyOf(withText("Par projet"), withId(R.id.by_project)))
+        onView(withText("Par projet"))
+                .perform(click());
+        onView(withId(R.id.projectDialogSpinner))
                 .perform(click());
         onData(allOf(is(instanceOf(String.class))))
                 .atPosition(2)
-                .perform(click()); //plantage au moment de passer au clic sur le bouton Ok
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(anyOf(withText("Par project"), withId(android.R.id.button1)))
+                .inRoot(RootMatchers.isPlatformPopup())
                 .perform(click());
-        //onView(withId(android.R.id.button1))
-        //        .perform(click());
+        onView(withId(android.R.id.button1))
+                .perform(click());
         onView(withId(R.id.task_recycler_view))
                 .check(ViewAssertions.matches(isDisplayed()));
     }
@@ -163,5 +162,5 @@ public class TaskListInstrumentedTest{
 //    //Création du test vérifiant le changement de background si la liste contient 0 élément -------------------OK
 //    //Création du test vérifiant l’affichage du message d’erreur si heure de fin < heure de début
 //    //Création du test vérifiant l’affichage de la liste filtrée par date -------------------------------------OK
-//    //Création du test vérifiant l’affichage de la liste filtrée par projet -----------------------------------OK, une fois le pb du spinner réglé
+//    //Création du test vérifiant l’affichage de la liste filtrée par projet -----------------------------------OK
 //    //Création du test vérifiant l’ajout et que la liste contient bien un élément de plus

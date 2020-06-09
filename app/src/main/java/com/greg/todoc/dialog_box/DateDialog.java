@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -27,6 +28,8 @@ public class DateDialog extends AppCompatDialogFragment {
     @BindView(R.id.dialogStartDateEdit) EditText mStartDateEdit;
     @BindView(R.id.dialogEndDateEdit) EditText mEndDateEdit;
     private Pick mPick;
+    @BindView(R.id.okDateDialog) Button mOkDate;
+    @BindView(R.id.cancelDateDialog) Button mCanceldate;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,6 +39,41 @@ public class DateDialog extends AppCompatDialogFragment {
 
         mStartDateEdit = view.findViewById(R.id.dialogStartDateEdit);
         mEndDateEdit = view.findViewById(R.id.dialogEndDateEdit);
+
+        mOkDate = view.findViewById(R.id.okDateDialog);
+        mOkDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String startDate = mStartDateEdit.getText().toString().trim();
+                String endDate = mEndDateEdit.getText().toString().trim();
+                if (endDate.compareTo(startDate) < 0)
+                {
+                    mEndDateEdit.setError("Date de fin incorrecte");
+                }
+                else
+                {
+                    mEndDateEdit.setText(endDate);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date start = simpleDateFormat.parse(startDate);
+                        Date end = simpleDateFormat.parse(endDate);
+                        EventBus.getDefault().post(new FilterByDateEvent(start, end));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    dismiss();
+                }
+            }
+        });
+
+        mCanceldate = view.findViewById(R.id.cancelDateDialog);
+        mCanceldate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         mStartDateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,27 +89,7 @@ public class DateDialog extends AppCompatDialogFragment {
             }
         });
 
-        builder.setView(view)
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        try {
-                                Date start = simpleDateFormat.parse(mStartDateEdit.getText().toString().trim());
-                                Date end = simpleDateFormat.parse(mEndDateEdit.getText().toString().trim());
-                                EventBus.getDefault().post(new FilterByDateEvent(start, end));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+        builder.setView(view);
         return builder.create();
     }
 }
