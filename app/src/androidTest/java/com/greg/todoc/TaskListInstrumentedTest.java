@@ -41,6 +41,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
@@ -193,6 +194,22 @@ public class TaskListInstrumentedTest{
 
     @Test
     public void addTask_and_checkIf_ListContainsOneMoreItem(){
+        onView(withId(R.id.task_recycler_view))
+               .check(withItemCount(ITEMS_COUNT));
+        onView(withId(R.id.add_btn))
+                .perform(click());
+        onView(withId(R.id.addTaskEt))
+                .perform(typeText("Manger du sable"));
+        onView(withId(R.id.projectSpinner))
+                .perform(click());
+        onData(allOf(is(instanceOf(String.class))))
+                .atPosition(2)
+                .inRoot(RootMatchers.isPlatformPopup())
+                .perform(click());
+        onView(withId(R.id.addDialog))
+                .perform(click());
+        onView(withId(R.id.task_recycler_view))
+                .check(withItemCount(ITEMS_COUNT+1));
     }
 }
 
