@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.content.ContextCompat;
 
@@ -32,6 +35,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 public class AddDialog extends AppCompatDialogFragment {
 
@@ -42,6 +46,9 @@ public class AddDialog extends AppCompatDialogFragment {
     @BindView(R.id.dateOfCreationInput) TextInputLayout mDateInput;
     @BindView(R.id.DateEt) EditText mAddDate;
     @BindView(R.id.projectSpinner) Spinner mSpinner;
+
+    @BindView(R.id.addDialog) Button mAddBtn;
+    @BindView(R.id.cancelAddDialog) Button mCancelAdd;
 
 
     @Override
@@ -56,86 +63,44 @@ public class AddDialog extends AppCompatDialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
 
-        //id value
-        System.currentTimeMillis();
-//
-        //image (color depending of spinner item selected)
-        //int lucidiaColor = ContextCompat.getColor(getActivity(), R.drawable.circus);
-        //int circusColor = ContextCompat.getColor(getActivity(), R.color.colorCircus);
-        //int tartampionColor = ContextCompat.getColor(getActivity(), R.color.colorTartampion);
-        //mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        //    @Override
-        //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //        switch(getId())
-        //        {
-        //            case 0:
-        //                mColor.setBackgroundColor(R.drawable.circus);
-        //                break;
-        //            case 1:
-        //                mColor.setBackgroundColor(R.drawable.lucidia);
-        //                break;
-        //            case 2:
-        //                mColor.setBackgroundColor(R.drawable.tartampion);
-        //        }
-        //    }
-//
-        //    @Override
-        //    public void onNothingSelected(AdapterView<?> parent) {
-//
-        //    }
-        //});
+        mAddTaskInput = view.findViewById(R.id.addTaskInput);
+        mAddTitle = view.findViewById(R.id.addTaskEt);
 
-        //task title (edit text)
-        //mAddTaskInput.getEditText().getText().toString().trim();
+        // Button
+        mAddBtn = view.findViewById(R.id.addDialog);
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //date of creation
-        //Calendar c = Calendar.getInstance();
-        //String currentDate = DateFormat.getDateInstance().format(c.getTime());
-        //mAddDate.setText(currentDate);
-        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        //try {
-        //    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
-        //} catch (ParseException e) {
-        //    e.printStackTrace();
-        //}
+                Date dateOfCreation = Calendar.getInstance().getTime();
 
-        // task project (spinner value)
-        //mSpinner.getSelectedItem().toString().trim();
+                Task task = new Task(
+                        System.currentTimeMillis(),
+                        R.drawable.tartampion,
+                        mAddTaskInput.getEditText().getText().toString().trim(),
+                        dateOfCreation,
+                        mSpinner.getSelectedItem().toString().trim()
+                );
+                mApiService.createTask(task);
+                Toasty.success(getActivity(), "Tâche enregistrée", Toasty.LENGTH_SHORT).show();
+                dismiss();
+            }
+        });
 
-        builder.setView(view)
-                .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //Calendar c = Calendar.getInstance();
-                        //String currentDate = DateFormat.getDateInstance().format(c.getTime());
-                        //mAddDate.setText(currentDate);
-                        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        //try {
-                        //    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
-                        //} catch (ParseException e) {
-                        //    e.printStackTrace();
-                        //}
+        mCancelAdd = view.findViewById(R.id.cancelAddDialog);
+        mCancelAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
-                        Task task = new Task(
-                                System.currentTimeMillis(),
-                                R.drawable.lucidia,
-                                mAddTaskInput.getEditText().getText().toString().trim(),
-                                new Date(122, 11, 17),
-                                mSpinner.getSelectedItem().toString().trim()
-                        );
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
+        builder.setView(view);
         return builder.create();
     }
 
     public void init(){
-
+        //mColor = taskSelection();
         Glide.with(getActivity())
                 .load(R.drawable.lucidia)
                 .into(mColor);
@@ -145,7 +110,83 @@ public class AddDialog extends AppCompatDialogFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {mAddBtn.setEnabled(s.length() > 0);}
+        });
+    }
+
+    void taskColorFromItemSelection(){
+        mSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (getId())
+                {
+                    case 0:
+                        mColor.setBackgroundColor(R.drawable.circus);
+                        break;
+                    case 1:
+                        mColor.setBackgroundColor(R.drawable.lucidia);
+                        break;
+                    case 2:
+                        mColor.setBackgroundColor(R.drawable.tartampion);
+                        break;
+                }
+            }
         });
     }
 }
+
+//id value
+//System.currentTimeMillis();
+//
+//image (color depending of spinner item selected)
+//int lucidiaColor = ContextCompat.getColor(getActivity(), R.drawable.circus);
+//int circusColor = ContextCompat.getColor(getActivity(), R.color.colorCircus);
+//int tartampionColor = ContextCompat.getColor(getActivity(), R.color.colorTartampion);
+//mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        switch(getId())
+//        {
+//            case 0:
+//                mColor.setBackgroundColor(R.drawable.circus);
+//                break;
+//            case 1:
+//                mColor.setBackgroundColor(R.drawable.lucidia);
+//                break;
+//            case 2:
+//                mColor.setBackgroundColor(R.drawable.tartampion);
+//        }
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
+//});
+
+//task title (edit text)
+//mAddTaskInput.getEditText().getText().toString().trim();
+
+//date of creation
+//Calendar c = Calendar.getInstance();
+//String currentDate = DateFormat.getDateInstance().format(c.getTime());
+//mAddDate.setText(currentDate);
+//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//try {
+//    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
+//} catch (ParseException e) {
+//    e.printStackTrace();
+//}
+
+// task project (spinner value)
+//mSpinner.getSelectedItem().toString().trim();
+
+//Calendar c = Calendar.getInstance();
+//String currentDate = DateFormat.getDateInstance().format(c.getTime());
+//mAddDate.setText(currentDate);
+//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//try {
+//    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
+//} catch (ParseException e) {
+//    e.printStackTrace();
+//}

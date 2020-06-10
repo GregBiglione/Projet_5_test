@@ -101,6 +101,9 @@ public class TaskListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.by_all:
+                initList();
+                break;
             case R.id.by_date:
                 DateDialog dateDialog = new DateDialog();
                 dateDialog.show(getSupportFragmentManager(), "Date dialog");

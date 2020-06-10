@@ -158,6 +158,16 @@ public class TaskListInstrumentedTest{
     }
 
     @Test
+    public void checkFullTask_byMenu_isDisplayed(){
+        onView(withId(R.id.main_menu))
+                .perform(click());
+        onView(withText("Toutes"))
+                .perform(click());
+        onView(withId(R.id.task_recycler_view))
+                .check(ViewAssertions.matches(isDisplayed()));
+    }
+
+    @Test
     public void checkError_isDiplayed_ifEndDate_lowerThan_StartDate(){
         onView(withId(R.id.main_menu))
                 .perform(click());
@@ -179,6 +189,10 @@ public class TaskListInstrumentedTest{
                 .perform(click());
         onView(withId(R.id.dialogEndDateEdit))
                 .check(ViewAssertions.matches(hasErrorText("Date de fin incorrecte")));
+    }
+
+    @Test
+    public void addTask_and_checkIf_ListContainsOneMoreItem(){
     }
 }
 

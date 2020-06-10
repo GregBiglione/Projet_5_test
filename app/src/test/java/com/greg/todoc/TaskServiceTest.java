@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class TaskServiceTest{
         long id = 21;
         int image = lucidiaColor;
         String title = "Passer l'aspirateur";
-        Date dateOfCreation = new Date(121, 6, 4);
+        Date dateOfCreation = Calendar.getInstance().getTime();
         String project = "Projet Lucidia";
         Task taskToAdd = new Task(id, image, title, dateOfCreation, project);
         service.createTask(taskToAdd);
