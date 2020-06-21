@@ -8,17 +8,15 @@ import java.util.Date;
 
 public class Task {
     long id;
-    int color;
     String title;
     Date dateOfCreation;
-    String project;
+    int project_id;
 
-    public Task(long id, int color, String title, Date dateOfCreation, String project) {
+    public Task(long id, String title, Date dateOfCreation, int project_id) {
         this.id = id;
-        this.color = color;
         this.title = title;
         this.dateOfCreation = dateOfCreation;
-        this.project = project;
+        this.project_id = project_id;
     }
 
     public long getId() {
@@ -27,14 +25,6 @@ public class Task {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int image) {
-        this.color = color;
     }
 
     public String getTitle() {
@@ -53,12 +43,12 @@ public class Task {
         this.dateOfCreation = dateOfCreation;
     }
 
-    public String getProject() {
-        return project;
+    public int getProject_id() {
+        return project_id;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
     @Override
