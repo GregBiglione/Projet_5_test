@@ -61,7 +61,7 @@ public class TaskListActivity extends AppCompatActivity {
 
     public void initList(){
         mTask = mApiService.getTasks();
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
+        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 
     @Override
@@ -119,12 +119,12 @@ public class TaskListActivity extends AppCompatActivity {
     @Subscribe
     public void onFilterBydate(FilterByDateEvent event){
         mTask = mApiService.getTasksByDates(event.getStartDate(), event.getEnddate());
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
+        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 
     @Subscribe
     public void onFilterByProject(FilterByProjectEvent event){
         mTask = mApiService.getTasksByProject(event.getProjectSelected());
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask));
+        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 }

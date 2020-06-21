@@ -1,5 +1,8 @@
 package com.greg.todoc.task_list;
 
+import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,9 +30,11 @@ import butterknife.ButterKnife;
 public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>{
 
     public List<Task> mTask;
+    Context mContext;
 
-    public TaskRecyclerViewAdapter(List<Task> mTask) {
+    public TaskRecyclerViewAdapter(List<Task> mTask, Context context) {
         this.mTask = mTask;
+        this.mContext = context;
     }
 
     @Override
@@ -40,10 +46,11 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        // @Query("SELECT * FROM Task WHERE id = :id")
+        //    LiveData<List<Task>> getItems(long id);
         Task task = mTask.get(position);
-        Glide.with(holder.mColor.getContext())
-                .load(task.getImage())
-                .into(holder.mColor);
+        Drawable color = new ColorDrawable(ContextCompat.getColor(mContext, task.getColor()));
+        holder.mColor.setImageDrawable(color);
         holder.mTitle.setText(task.getTitle());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         holder.mCreationDate.setText(simpleDateFormat.format(task.getDateOfCreation()));
@@ -51,6 +58,9 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //@Query("DELETE FROM Task WHERE id = :id")
+                //int deleteTask(long id);
                 EventBus.getDefault().post(new DeleteTaskEvent(task));
             }
         });

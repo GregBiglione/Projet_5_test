@@ -57,7 +57,7 @@ public class TaskServiceTest{
 
     @Test
     public void addTaskWithSuccess(){
-        int lucidiaColor = R.drawable.tartampion;
+        int lucidiaColor = R.color.colorTartampion;
         long id = 21;
         int image = lucidiaColor;
         String title = "Passer l'aspirateur";

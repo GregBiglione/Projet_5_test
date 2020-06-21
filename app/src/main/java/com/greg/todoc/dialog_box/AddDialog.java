@@ -72,11 +72,14 @@ public class AddDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
 
+                //@Insert
+                //long insertItem(Task task);
+
                 Date dateOfCreation = Calendar.getInstance().getTime();
 
                 Task task = new Task(
                         System.currentTimeMillis(),
-                        R.drawable.tartampion,
+                        R.color.colorTartampion,
                         mAddTaskInput.getEditText().getText().toString().trim(),
                         dateOfCreation,
                         mSpinner.getSelectedItem().toString().trim()
@@ -121,13 +124,13 @@ public class AddDialog extends AppCompatDialogFragment {
                 switch (getId())
                 {
                     case 0:
-                        mColor.setBackgroundColor(R.drawable.circus);
+                        mColor.setBackgroundColor(getResources().getColor(R.color.colorCircus));
                         break;
                     case 1:
-                        mColor.setBackgroundColor(R.drawable.lucidia);
+                        mColor.setBackgroundColor(getResources().getColor(R.color.colorLucidia));
                         break;
                     case 2:
-                        mColor.setBackgroundColor(R.drawable.tartampion);
+                        mColor.setBackgroundColor(getResources().getColor(R.color.colorTartampion));
                         break;
                 }
             }

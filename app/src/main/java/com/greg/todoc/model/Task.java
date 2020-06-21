@@ -2,18 +2,20 @@ package com.greg.todoc.model;
 
 import android.graphics.Color;
 
+import androidx.annotation.ColorInt;
+
 import java.util.Date;
 
 public class Task {
     long id;
-    int image;
+    int color;
     String title;
     Date dateOfCreation;
     String project;
 
-    public Task(long id, int image, String title, Date dateOfCreation, String project) {
+    public Task(long id, int color, String title, Date dateOfCreation, String project) {
         this.id = id;
-        this.image = image;
+        this.color = color;
         this.title = title;
         this.dateOfCreation = dateOfCreation;
         this.project = project;
@@ -27,12 +29,12 @@ public class Task {
         this.id = id;
     }
 
-    public int getImage() {
-        return image;
+    public int getColor() {
+        return color;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setColor(int image) {
+        this.color = color;
     }
 
     public String getTitle() {
