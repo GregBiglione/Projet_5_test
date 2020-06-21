@@ -1,12 +1,13 @@
 package com.greg.todoc.model;
 
-import android.graphics.Color;
-
-import androidx.annotation.ColorInt;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+@Entity
 public class Task {
+    @PrimaryKey
     long id;
     String title;
     Date dateOfCreation;
