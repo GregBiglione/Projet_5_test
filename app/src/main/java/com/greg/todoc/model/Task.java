@@ -1,23 +1,36 @@
 package com.greg.todoc.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.greg.todoc.DateConverter;
 
 import java.util.Date;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = Project.class,
+        parentColumns = "id",
+        childColumns = "projectId"),
+        indices = {@Index(value = {"id"}, unique = true),@Index(value = {"projectId"})})
+
 public class Task {
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
     long id;
     String title;
+    @TypeConverters(DateConverter.class)
     Date dateOfCreation;
-    int project_id;
+    @ColumnInfo(name = "projectId")
+    long projectId;
 
-    public Task(long id, String title, Date dateOfCreation, int project_id) {
+    public Task(long id, String title, Date dateOfCreation, long projectId) {
         this.id = id;
         this.title = title;
         this.dateOfCreation = dateOfCreation;
-        this.project_id = project_id;
+        this.projectId = projectId;
     }
 
     public long getId() {
@@ -44,12 +57,12 @@ public class Task {
         this.dateOfCreation = dateOfCreation;
     }
 
-    public int getProject_id() {
-        return project_id;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
     @Override

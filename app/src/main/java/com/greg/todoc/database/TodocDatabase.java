@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.greg.todoc.R;
+import com.greg.todoc.database.dao.ProjectDao;
 import com.greg.todoc.database.dao.TaskDao;
 import com.greg.todoc.model.Project;
 import com.greg.todoc.model.Task;
@@ -24,18 +25,28 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     //--------- DAO --------------
     public abstract TaskDao taskDao();
+    public abstract ProjectDao projectDao();
 
     //--------- INSTANCE --------------
-    public static TodocDatabase getInstance(Context context){
+    //public static TodocDatabase getInstance(Context context){
+    //    if (INSTANCE == null){
+    //        synchronized (TodocDatabase.class){
+    //            if (INSTANCE == null){
+    //                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+    //                        TodocDatabase.class, "TodocDatabase.db")
+    //                        .addCallback(prepopulateDatabase())
+    //                        .build();
+    //            }
+    //        }
+    //    }
+    //    return INSTANCE;
+    //}
+    public static synchronized TodocDatabase getInstance(Context context){
         if (INSTANCE == null){
-            synchronized (TodocDatabase.class){
-                if (INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TodocDatabase.class, "TodocDatabase.db")
-                            .addCallback(prepopulateDatabase())
-                            .build();
-                }
-            }
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                    TodocDatabase.class, "TodocDatabase")
+                    .addCallback(prepopulateDatabase())
+                    .build();
         }
         return INSTANCE;
     }

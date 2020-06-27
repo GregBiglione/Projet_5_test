@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greg.todoc.R;
-import com.greg.todoc.di.DI;
+//import com.greg.todoc.di.DI;
 import com.greg.todoc.dialog_box.AddDialog;
 import com.greg.todoc.dialog_box.DateDialog;
 import com.greg.todoc.dialog_box.ProjectDialog;
@@ -34,8 +34,8 @@ import butterknife.ButterKnife;
 
 public class TaskListActivity extends AppCompatActivity {
 
-    private List<Task> mTask;
-    private TaskApiService mApiService;
+    //private List<Task> mTask;
+    //private TaskApiService mApiService;
     @BindView(R.id.task_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.add_btn) FloatingActionButton mAdd;
 
@@ -44,7 +44,7 @@ public class TaskListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mApiService = DI.getTaskApiService();
+        //mApiService = DI.getTaskApiService();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         initList();
@@ -60,8 +60,8 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     public void initList(){
-        mTask = mApiService.getTasks();
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
+        //mTask = mApiService.getTasks();
+        //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 
     @Override
@@ -78,12 +78,12 @@ public class TaskListActivity extends AppCompatActivity {
 
     @Subscribe
     public void onDeleteTask(DeleteTaskEvent event){
-        mApiService.deleteTask(event.task);
+        //mApiService.deleteTask(event.task);
         initList();
-        if (mTask.isEmpty())
-        {
-            setContentView(R.layout.no_task);
-        }
+        //if (mTask.isEmpty())
+        //{
+        //    setContentView(R.layout.no_task);
+        //}
     }
 
     public void openAddDialog(){
@@ -118,13 +118,13 @@ public class TaskListActivity extends AppCompatActivity {
 
     @Subscribe
     public void onFilterBydate(FilterByDateEvent event){
-        mTask = mApiService.getTasksByDates(event.getStartDate(), event.getEnddate());
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
+        //mTask = mApiService.getTasksByDates(event.getStartDate(), event.getEnddate());
+        //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 
     @Subscribe
     public void onFilterByProject(FilterByProjectEvent event){
-        mTask = mApiService.getTasksByProject(event.getProjectSelected());
-        mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
+        //mTask = mApiService.getTasksByProject(event.getProjectSelected());
+        //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
     }
 }

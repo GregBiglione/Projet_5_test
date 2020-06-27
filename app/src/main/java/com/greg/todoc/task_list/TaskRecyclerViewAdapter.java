@@ -49,8 +49,9 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         // @Query("SELECT * FROM Task WHERE id = :id")
         //    LiveData<List<Task>> getItems(long id);
         Task task = mTask.get(position);
-        Drawable color = new ColorDrawable(ContextCompat.getColor(mContext, task.getColor()));
-        holder.mColor.setImageDrawable(color);
+        //Drawable color = new ColorDrawable(ContextCompat.getColor(mContext, task.getColor()));
+        //holder.mColor.setImageDrawable(color);
+        holder.mColor.setColorFilter(R.color.colorTartampion);
         holder.mTitle.setText(task.getTitle());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         holder.mCreationDate.setText(simpleDateFormat.format(task.getDateOfCreation()));

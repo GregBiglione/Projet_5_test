@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
 import com.greg.todoc.R;
-import com.greg.todoc.di.DI;
+//import com.greg.todoc.di.DI;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
 
@@ -53,7 +53,7 @@ public class AddDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mApiService = DI.getTaskApiService();
+        //mApiService = DI.getTaskApiService();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_add_dialog, null);
@@ -77,14 +77,14 @@ public class AddDialog extends AppCompatDialogFragment {
 
                 Date dateOfCreation = Calendar.getInstance().getTime();
 
-                Task task = new Task(
-                        System.currentTimeMillis(),
-                        R.color.colorTartampion,
-                        mAddTaskInput.getEditText().getText().toString().trim(),
-                        dateOfCreation,
-                        mSpinner.getSelectedItem().toString().trim()
-                );
-                mApiService.createTask(task);
+                //Task task = new Task(
+                //        System.currentTimeMillis(),
+                //        //R.color.colorTartampion,
+                //        mAddTaskInput.getEditText().getText().toString().trim(),
+                //        dateOfCreation
+                //        //mSpinner.getSelectedItem().toString().trim()
+                //);
+                //mApiService.createTask(task);
                 Toasty.success(getActivity(), "Tâche enregistrée", Toasty.LENGTH_SHORT).show();
                 dismiss();
             }

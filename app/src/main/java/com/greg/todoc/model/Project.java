@@ -1,15 +1,11 @@
 package com.greg.todoc.model;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = Task.class,
-        parentColumns = "project_id",
-        childColumns = "id"))
-
+@Entity
 public class Project {
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     long id;
     String name;
     int color;
