@@ -26,8 +26,7 @@ public class Task {
     @ColumnInfo(name = "projectId")
     long projectId;
 
-    public Task(long id, String title, Date dateOfCreation, long projectId) {
-        this.id = id;
+    public Task(String title, Date dateOfCreation, long projectId) {
         this.title = title;
         this.dateOfCreation = dateOfCreation;
         this.projectId = projectId;

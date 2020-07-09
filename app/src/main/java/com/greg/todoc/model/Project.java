@@ -10,8 +10,7 @@ public class Project {
     String name;
     int color;
 
-    public Project(long id, String name, int color) {
-        this.id = id;
+    public Project(String name, int color) {
         this.name = name;
         this.color = color;
     }

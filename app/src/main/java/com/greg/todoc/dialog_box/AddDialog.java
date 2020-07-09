@@ -3,6 +3,7 @@ package com.greg.todoc.dialog_box;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,6 +51,9 @@ public class AddDialog extends AppCompatDialogFragment {
     @BindView(R.id.addDialog) Button mAddBtn;
     @BindView(R.id.cancelAddDialog) Button mCancelAdd;
 
+    public static final String EXTRA_TITLE = "com.greg.todoc.dialog_box.EXTRA_TITLE";
+    public static final String DATE_OF_CREATION = "com.greg.todoc.dialog_box.DATE_OF_CREATION";
+    public static final String EXTRA_PROJECT = "com.greg.todoc.dialog_box.EXTRA_PROJECT";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -102,94 +106,38 @@ public class AddDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public void init(){
-        //mColor = taskSelection();
-        Glide.with(getActivity())
-                .load(R.drawable.lucidia)
-                .into(mColor);
-        mAddTaskInput.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {mAddBtn.setEnabled(s.length() > 0);}
-        });
-    }
+    //public void init(){
+    //    //mColor = taskSelection();
+    //    Glide.with(getActivity())
+    //            .load(R.drawable.lucidia)
+    //            .into(mColor);
+    //    mAddTaskInput.getEditText().addTextChangedListener(new TextWatcher() {
+    //        @Override
+    //        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    //        @Override
+    //        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    //        @Override
+    //        public void afterTextChanged(Editable s) {mAddBtn.setEnabled(s.length() > 0);}
+    //    });
+    //}
 
-    void taskColorFromItemSelection(){
-        mSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (getId())
-                {
-                    case 0:
-                        mColor.setBackgroundColor(getResources().getColor(R.color.colorCircus));
-                        break;
-                    case 1:
-                        mColor.setBackgroundColor(getResources().getColor(R.color.colorLucidia));
-                        break;
-                    case 2:
-                        mColor.setBackgroundColor(getResources().getColor(R.color.colorTartampion));
-                        break;
-                }
-            }
-        });
-    }
+    //void taskColorFromItemSelection(){
+    //    mSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    //        @Override
+    //        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    //            switch (getId())
+    //            {
+    //                case 0:
+    //                    mColor.setBackgroundColor(getResources().getColor(R.color.colorCircus));
+    //                    break;
+    //                case 1:
+    //                    mColor.setBackgroundColor(getResources().getColor(R.color.colorLucidia));
+    //                    break;
+    //                case 2:
+    //                    mColor.setBackgroundColor(getResources().getColor(R.color.colorTartampion));
+    //                    break;
+    //            }
+    //        }
+    //    });
+    //}
 }
-
-//id value
-//System.currentTimeMillis();
-//
-//image (color depending of spinner item selected)
-//int lucidiaColor = ContextCompat.getColor(getActivity(), R.drawable.circus);
-//int circusColor = ContextCompat.getColor(getActivity(), R.color.colorCircus);
-//int tartampionColor = ContextCompat.getColor(getActivity(), R.color.colorTartampion);
-//mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        switch(getId())
-//        {
-//            case 0:
-//                mColor.setBackgroundColor(R.drawable.circus);
-//                break;
-//            case 1:
-//                mColor.setBackgroundColor(R.drawable.lucidia);
-//                break;
-//            case 2:
-//                mColor.setBackgroundColor(R.drawable.tartampion);
-//        }
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//
-//    }
-//});
-
-//task title (edit text)
-//mAddTaskInput.getEditText().getText().toString().trim();
-
-//date of creation
-//Calendar c = Calendar.getInstance();
-//String currentDate = DateFormat.getDateInstance().format(c.getTime());
-//mAddDate.setText(currentDate);
-//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//try {
-//    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
-//} catch (ParseException e) {
-//    e.printStackTrace();
-//}
-
-// task project (spinner value)
-//mSpinner.getSelectedItem().toString().trim();
-
-//Calendar c = Calendar.getInstance();
-//String currentDate = DateFormat.getDateInstance().format(c.getTime());
-//mAddDate.setText(currentDate);
-//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//try {
-//    Date today = simpleDateFormat.parse(mDateInput.getEditText().getText().toString().trim());
-//} catch (ParseException e) {
-//    e.printStackTrace();
-//}

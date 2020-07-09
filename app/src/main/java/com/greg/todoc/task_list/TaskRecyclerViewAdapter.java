@@ -22,6 +22,7 @@ import com.greg.todoc.model.Task;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,13 +30,14 @@ import butterknife.ButterKnife;
 
 public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>{
 
-    public List<Task> mTask;
-    Context mContext;
+    // For Data
+    private List<Task> tasks = new ArrayList<>();
+    //Context mContext;
 
-    public TaskRecyclerViewAdapter(List<Task> mTask, Context context) {
-        this.mTask = mTask;
-        this.mContext = context;
-    }
+    //public TaskRecyclerViewAdapter(List<Task> mTask, Context context) {
+    //    this.mTask = mTask;
+    //    this.mContext = context;
+    //}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,15 +48,20 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        Task currentTask = tasks.get(position);
+        //holder.mColor.setText(String.valueOf(currentTask.getProjectId()));
+        holder.mTitle.setText(currentTask.getTitle());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        holder.mCreationDate.setText(simpleDateFormat.format(currentTask.getDateOfCreation()));
         // @Query("SELECT * FROM Task WHERE id = :id")
         //    LiveData<List<Task>> getItems(long id);
-        Task task = mTask.get(position);
+        //Task task = mTask.get(position);
         //Drawable color = new ColorDrawable(ContextCompat.getColor(mContext, task.getColor()));
         //holder.mColor.setImageDrawable(color);
-        holder.mColor.setColorFilter(R.color.colorTartampion);
-        holder.mTitle.setText(task.getTitle());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        holder.mCreationDate.setText(simpleDateFormat.format(task.getDateOfCreation()));
+        //holder.mColor.setColorFilter(R.color.colorTartampion);
+        //holder.mTitle.setText(task.getTitle());
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //holder.mCreationDate.setText(simpleDateFormat.format(task.getDateOfCreation()));
 
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +69,19 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
                 //@Query("DELETE FROM Task WHERE id = :id")
                 //int deleteTask(long id);
-                EventBus.getDefault().post(new DeleteTaskEvent(task));
+                //EventBus.getDefault().post(new DeleteTaskEvent(task));
             }
         });
     }
 
+    public void setTasks(List<Task> tasks){
+        this.tasks = tasks;
+        notifyDataSetChanged(); //pas la meilleure solution à modifier plus tard
+    }
+
     @Override
     public int getItemCount() {
-        return mTask.size();
+        return tasks.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

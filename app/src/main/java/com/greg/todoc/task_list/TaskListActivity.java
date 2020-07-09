@@ -1,7 +1,9 @@
 package com.greg.todoc.task_list;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.greg.todoc.events.FilterByDateEvent;
 import com.greg.todoc.events.FilterByProjectEvent;
 import com.greg.todoc.model.Task;
 import com.greg.todoc.service.TaskApiService;
+import com.greg.todoc.viewmodel.TaskViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 public class TaskListActivity extends AppCompatActivity {
 
@@ -38,16 +42,28 @@ public class TaskListActivity extends AppCompatActivity {
     //private TaskApiService mApiService;
     @BindView(R.id.task_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.add_btn) FloatingActionButton mAdd;
+    private TaskViewModel mTaskViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRecyclerView = findViewById(R.id.task_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TaskRecyclerViewAdapter adapter = new TaskRecyclerViewAdapter();
+        mRecyclerView.setAdapter(adapter); //sera vide par défaut
+
+        mTaskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        mTaskViewModel.getTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+               adapter.setTasks(tasks); // a chaque changement sur les t^^aches l'adapter sera mis à jour
+            }
+        });
         ButterKnife.bind(this);
         //mApiService = DI.getTaskApiService();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        initList();
+        //initList();
 
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +71,12 @@ public class TaskListActivity extends AppCompatActivity {
                 openAddDialog();
             }
         });
-
-
     }
 
-    public void initList(){
-        //mTask = mApiService.getTasks();
-        //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
-    }
+    //public void initList(){
+    //    //mTask = mApiService.getTasks();
+    //    //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
+    //}
 
     @Override
     protected void onStart() {
@@ -79,7 +93,7 @@ public class TaskListActivity extends AppCompatActivity {
     @Subscribe
     public void onDeleteTask(DeleteTaskEvent event){
         //mApiService.deleteTask(event.task);
-        initList();
+        //initList();
         //if (mTask.isEmpty())
         //{
         //    setContentView(R.layout.no_task);
@@ -99,10 +113,10 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.by_all:
-                initList();
+                //initList();
                 break;
             case R.id.by_date:
                 DateDialog dateDialog = new DateDialog();
