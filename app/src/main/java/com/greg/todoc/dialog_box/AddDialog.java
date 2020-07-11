@@ -25,7 +25,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.greg.todoc.R;
 //import com.greg.todoc.di.DI;
 import com.greg.todoc.model.Task;
-import com.greg.todoc.service.TaskApiService;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -40,7 +39,6 @@ import es.dmoral.toasty.Toasty;
 
 public class AddDialog extends AppCompatDialogFragment {
 
-    private TaskApiService mApiService;
     @BindView(R.id.imageColor) CircleImageView mColor;
     @BindView(R.id.addTaskInput) TextInputLayout mAddTaskInput;
     @BindView(R.id.addTaskEt) EditText mAddTitle;

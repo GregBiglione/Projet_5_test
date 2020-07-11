@@ -1,13 +1,12 @@
-package com.greg.todoc.task_list;
+package com.greg.todoc.ui.task_list;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +15,6 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greg.todoc.R;
-//import com.greg.todoc.di.DI;
 import com.greg.todoc.dialog_box.AddDialog;
 import com.greg.todoc.dialog_box.DateDialog;
 import com.greg.todoc.dialog_box.ProjectDialog;
@@ -24,7 +22,6 @@ import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.events.FilterByDateEvent;
 import com.greg.todoc.events.FilterByProjectEvent;
 import com.greg.todoc.model.Task;
-import com.greg.todoc.service.TaskApiService;
 import com.greg.todoc.viewmodel.TaskViewModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,8 +35,6 @@ import es.dmoral.toasty.Toasty;
 
 public class TaskListActivity extends AppCompatActivity {
 
-    //private List<Task> mTask;
-    //private TaskApiService mApiService;
     @BindView(R.id.task_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.add_btn) FloatingActionButton mAdd;
     private TaskViewModel mTaskViewModel;
@@ -58,25 +53,11 @@ public class TaskListActivity extends AppCompatActivity {
         mTaskViewModel.getTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-               adapter.setTasks(tasks); // a chaque changement sur les t^^aches l'adapter sera mis à jour
+               adapter.setTasks(tasks); // a chaque changement sur les tâches l'adapter sera mis à jour
             }
         });
         ButterKnife.bind(this);
-        //mApiService = DI.getTaskApiService();
-        //initList();
-
-        mAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddDialog();
-            }
-        });
     }
-
-    //public void initList(){
-    //    //mTask = mApiService.getTasks();
-    //    //mRecyclerView.setAdapter(new TaskRecyclerViewAdapter(mTask, this));
-    //}
 
     @Override
     protected void onStart() {
@@ -92,12 +73,6 @@ public class TaskListActivity extends AppCompatActivity {
 
     @Subscribe
     public void onDeleteTask(DeleteTaskEvent event){
-        //mApiService.deleteTask(event.task);
-        //initList();
-        //if (mTask.isEmpty())
-        //{
-        //    setContentView(R.layout.no_task);
-        //}
     }
 
     public void openAddDialog(){

@@ -1,8 +1,5 @@
-package com.greg.todoc.task_list;
+package com.greg.todoc.ui.task_list;
 
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +8,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.greg.todoc.R;
-import com.greg.todoc.events.DeleteTaskEvent;
 import com.greg.todoc.model.Task;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +62,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
                 //@Query("DELETE FROM Task WHERE id = :id")
                 //int deleteTask(long id);
                 //EventBus.getDefault().post(new DeleteTaskEvent(task));
+                
             }
         });
     }

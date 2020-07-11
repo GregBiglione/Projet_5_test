@@ -73,17 +73,17 @@ public abstract class TodocDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            //--------- PROJECTS --------------
+            mProjectDao.createProject(new Project("Projet Lucidia", R.color.colorLucidia));
+            mProjectDao.createProject(new Project("Projet Circus", R.color.colorCircus));
+            mProjectDao.createProject(new Project("Projet Tartampion", R.color.colorTartampion));
+
             //--------- TASKS --------------
             mTaskDao.insertTask(new Task("Nettoyer les vitres", setTaskDate(2020, 8, 7), 1));
             mTaskDao.insertTask(new Task("Vider le lave vaisselle", setTaskDate(2020, 8, 11), 2));
             mTaskDao.insertTask(new Task("Passer l'aspirateur" , setTaskDate(2020, 8, 14), 2));
             mTaskDao.insertTask(new Task("Arroser les plantes", setTaskDate(2020, 8, 17), 1));
             mTaskDao.insertTask(new Task("Nettoyer les toilettes", setTaskDate(2020, 8, 23), 3));
-
-            //--------- PROJECTS --------------
-            mProjectDao.createProject(new Project("Projet Lucidia", R.color.colorLucidia));
-            mProjectDao.createProject(new Project("Projet Circus", R.color.colorCircus));
-            mProjectDao.createProject(new Project("Projet Tartampion", R.color.colorTartampion));
             return null;
         }
     }
