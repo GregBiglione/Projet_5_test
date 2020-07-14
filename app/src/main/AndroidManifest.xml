@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.task_list.TaskListActivity">
+        <activity android:name=".ui.task_list.AddTaskActivity" android:parentActivityName=".ui.task_list.TaskListActivity"/>
+        <activity android:name=".ui.task_list.TaskListActivity" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

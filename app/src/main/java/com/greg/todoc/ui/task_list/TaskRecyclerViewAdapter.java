@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.greg.todoc.R;
 import com.greg.todoc.model.Task;
+import com.greg.todoc.viewmodel.TaskViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>{
 
@@ -62,7 +64,6 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
                 //@Query("DELETE FROM Task WHERE id = :id")
                 //int deleteTask(long id);
                 //EventBus.getDefault().post(new DeleteTaskEvent(task));
-                
             }
         });
     }
